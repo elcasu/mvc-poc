@@ -1,0 +1,32 @@
+#cart-trigger .glyphicon {
+  font-size: 32px;
+  position: relative;
+  margin-right: 25px;
+  color: #777;
+}
+
+#cart .cart-item {
+  padding: 8px;
+}
+
+.cart-container {
+  width: 300px;
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  background-color: #fff;
+}
+
+#cart-badge {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #000;
+}
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+}
