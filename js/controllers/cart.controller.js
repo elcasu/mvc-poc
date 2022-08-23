@@ -9,5 +9,13 @@
     })
   }
 
+  CartController.prototype.display = function() {
+    this.cartView.update(this.cartModel)
+  }
+
+  CartController.prototype.addToCart = function(product) {
+    this.cartModel.addItem(product)
+  }
+
   w.app.controllers.CartController = CartController
 })(window)

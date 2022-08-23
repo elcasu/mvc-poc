@@ -13,6 +13,13 @@
 
     // subscribe to events
     this.eventHandler.subscribe('cart_changed', this)
+
+    // event listener which detects clicks outside the component
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('#cart') && !event.target.closest('#cart-trigger')) {
+        this.cleanup()
+      }
+    })
   }
 
   CartView.prototype.toggleCart = function(cart) {
@@ -21,7 +28,6 @@
     } else {
       this.cleanup()
     }
-    this.visible = !this.visible
   }
 
   CartView.prototype.displayCart = function(cart) {
@@ -34,30 +40,30 @@
 
     // render items
     if (cart && cart.items.length) {
-      const domParser = new w.DOMParser()
       cart.items.forEach(item => {
         // get the template for *each* item
         const row = this.cartItemTemplate(item)
-        const domItem = domParser.parseFromString(row, 'text/html').querySelector('li')
+        const deleteBtn = row.querySelector(`#remove-cart-item-${item.id}`)
 
         // now that we have the DOM representation of the item,
-        // we're able to add a "click" event listener
-        domItem.addEventListener('click', () => cart.removeItem(item))
+        // we're able to add a "click" event listener to the
+        // trash button
+        deleteBtn.addEventListener('click', () => cart.removeItem(item))
 
         // and finally append to the parent DOM
-        items.appendChild(domItem)
+        items.appendChild(row)
       })
     } else {
       // if no items, then just display an empty view
       items.innerHTML = `<li class="list-group-item cart-empty">${EMPTY_CONTENT}</li>`
     }
     this.cartContainer.appendChild(items)
+    this.visible = true
   }
 
   CartView.prototype.cleanup = function() {
-    while (this.cartContainer.firstChild) {
-      this.cartContainer.removeChild(this.cartContainer.firstChild)
-    }
+    w.app.services.utils.cleanupView(this.cartContainer)
+    this.visible = false
   }
 
   // this method will be called when an event is triggered
@@ -77,7 +83,8 @@
   // Templates
   // TODO: find a better way to handle this outside this class :thinking:
   CartView.prototype.cartItemTemplate = function(item) {
-    return `
+    const domParser = new w.DOMParser()
+    const template = `
       <li class="cart-item list-group-item">
         <div class="row p-3">
           <div class="col">${item.name}</div>
@@ -90,6 +97,7 @@
           </div>
         </div>
       </li>`
+    return domParser.parseFromString(template, 'text/html').querySelector('li')
   }
 
   w.app.views.CartView = CartView

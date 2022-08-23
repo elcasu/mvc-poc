@@ -7,5 +7,5 @@
     return result.json()
   }
 
-  w.services.HttpService = HttpService
+  w.app.services.http = new HttpService()
 })(window)

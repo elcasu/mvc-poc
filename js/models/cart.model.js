@@ -5,7 +5,18 @@
   }
 
   CartModel.prototype.addItem = function(item) {
-    this.items.push(item)
+    const existingItem = this.items.find(i => i.id === item.id)
+    if (existingItem) {
+      existingItem.quantity += 1
+    } else {
+      this.items.push({
+        id: item.id,
+        name: item.title,
+        price: item.price,
+        quantity: 1,
+      })
+    }
+    this.eventHandler.notify('cart_changed', this)
   }
 
   CartModel.prototype.removeItem = function(item) {

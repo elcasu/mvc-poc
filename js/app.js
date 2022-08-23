@@ -1,6 +1,8 @@
 (function(w) {
   function App() {
+    // services
     this.eventHandler = new w.app.services.EventHandler()
+
     // cart
     this.cartModel = new w.app.models.CartModel(this.eventHandler)
     this.cartView = new w.app.views.CartView(this.eventHandler)
@@ -8,20 +10,17 @@
 
     // products
     this.productModel = new w.app.models.ProductModel()
-    this.productListView = new w.app.views.ProductListView()
-    this.productController = new w.app.controllers.ProductController()
+    this.productListView = new w.app.views.ProductListView(this.cartController)
+    this.productController = new w.app.controllers.ProductController(this.productModel, this.productListView)
     this.services = w.app.services
   }
 
   async function initApp() {
     const app = new App()
-    app.cartModel.items = [
-      { id: 1, name: 'My first item', quantity: 1 },
-      { id: 2, name: 'My second item', quantity: 4 },
-      { id: 3, name: 'My third item', quantity: 10 },
-    ]
-    app.productsView.update(app.productsView)
-    app.cartView.update(app.cartModel)
+
+    // display the views
+    app.productController.display()
+    app.cartController.display()
   }
 
   // initialize globals
