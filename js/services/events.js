@@ -12,9 +12,9 @@
     })
   }
 
-  EventHandler.prototype.notify = function(event, data) {
+  EventHandler.prototype.notify = function(event, model) {
     const eventObservers = this.observers.filter(o => o.key === event)
-    eventObservers.forEach(o => o.observer.update(data))
+    eventObservers.forEach(o => o.observer.update(model))
   }
 
   w.app.services.EventHandler = EventHandler
