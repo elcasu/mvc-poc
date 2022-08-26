@@ -80,6 +80,10 @@
     }
   }
 
+  CartView.prototype.display = function(cart) {
+    this.update(cart)
+  }
+
   // Templates
   // TODO: find a better way to handle this outside this class :thinking:
   CartView.prototype.cartItemTemplate = function(item) {

@@ -10,7 +10,7 @@
   }
 
   CartController.prototype.display = function() {
-    this.cartView.update(this.cartModel)
+    this.cartView.display(this.cartModel)
   }
 
   CartController.prototype.addToCart = function(product) {
