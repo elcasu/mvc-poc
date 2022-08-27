@@ -16,7 +16,12 @@
 
     // event listener which detects clicks outside the component
     document.addEventListener('click', (event) => {
-      if (!event.target.closest('#cart') && !event.target.closest('#cart-trigger')) {
+      // TODO: make this more generic
+      if (
+        !event.target.closest('#cart') &&
+        !event.target.closest('#cart-trigger') &&
+        !event.target.closest('.remove-item')
+      ) {
         this.cleanup()
       }
     })

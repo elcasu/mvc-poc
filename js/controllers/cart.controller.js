@@ -17,5 +17,9 @@
     this.cartModel.addItem(product)
   }
 
+  CartController.prototype.getItem = function(product) {
+    return this.cartModel.getItem(product)
+  }
+
   w.app.controllers.CartController = CartController
 })(window)

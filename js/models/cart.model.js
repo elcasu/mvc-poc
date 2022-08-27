@@ -24,5 +24,9 @@
     this.eventHandler.notify('cart_changed', this)
   }
 
+  CartModel.prototype.getItem = function(product) {
+    return this.items.find(item => item.id === product.id)
+  }
+
   w.app.models.CartModel = CartModel
 })(window)
