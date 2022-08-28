@@ -9,15 +9,16 @@
     // cleanup the list view
     this.cleanup()
 
-    // display "loading" spinner
-    // TODO: maybe we could split the spinner as a separate view?
-    const loadingNode = this.loadingTemplate()
-    this.productListContainer.appendChild(loadingNode)
+    if (!this.products || !this.products.length) {
+      // display "loading" spinner
+      const loadingNode = this.loadingTemplate()
+      this.productListContainer.appendChild(loadingNode)
 
-    this.products = await productModel.getProducts()
+      this.products = await productModel.getProducts()
 
-    // products loaded, hide the spinner
-    this.productListContainer.removeChild(loadingNode)
+      // products loaded, hide the spinner
+      this.productListContainer.removeChild(loadingNode)
+    }
 
     this.products.forEach(product => {
       // take each product and append it's template to the container
@@ -32,6 +33,7 @@
     w.app.services.utils.cleanupView(this.productListContainer)
   }
 
+  // TODO: maybe we could split the spinner as a separate view?
   ProductListView.prototype.loadingTemplate = function() {
     const domParser = new w.DOMParser()
     const template = `
@@ -52,8 +54,10 @@
             <img src="${product.image}" alt="${product.name}" width="150" />
           </div>
         </div>
-        <div>
-          <div class="price">$${product.price}</div>
+        <div class="position-relative">
+          <div>
+            <div class="price">$${product.price}</div>
+          </div>
           <div class="description">${product.description}</div>
           <div class="actions mt-5 d-flex justify-content-between">
             <button class="add-to-cart btn btn-success btn-lg">Add to cart</button>
