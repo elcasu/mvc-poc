@@ -104,3 +104,6 @@ After creating the resources, it calls the controllers, so they render the follo
 
 - CartView: Here we display all the items in the cart.
 - ProductListView: Displays the list of products.
+
+At this point, the views are created and, if needed, subscribed to some event(s). Controllers are also
+initialized with the corresponding model and view.
