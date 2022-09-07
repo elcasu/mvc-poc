@@ -1,4 +1,6 @@
-(function(w) {
+define([
+  'services/utils'
+], function(utils) {
   const EMPTY_CONTENT = 'No items in your cart yet!'
 
   function CartView(eventHandler) {
@@ -67,7 +69,7 @@
   }
 
   CartView.prototype.cleanup = function() {
-    w.app.services.utils.cleanupView(this.cartContainer)
+    utils.cleanupView(this.cartContainer)
     this.visible = false
   }
 
@@ -92,7 +94,7 @@
   // Templates
   // TODO: find a better way to handle this outside this class :thinking:
   CartView.prototype.cartItemTemplate = function(item) {
-    const domParser = new w.DOMParser()
+    const domParser = new DOMParser()
     const template = `
       <li class="cart-item list-group-item">
         <div class="row p-3">
@@ -109,5 +111,5 @@
     return domParser.parseFromString(template, 'text/html').querySelector('li')
   }
 
-  w.app.views.CartView = CartView
-})(window)
+  return CartView
+})

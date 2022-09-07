@@ -1,4 +1,4 @@
-(function EventHandler(w) {
+define([], function() {
   function EventHandler() {
     // Here we'll store the observers, this is all
     // the views which will be listening to events
@@ -17,5 +17,5 @@
     eventObservers.forEach(o => o.observer.update(model))
   }
 
-  w.app.services.EventHandler = EventHandler
-})(window)
+  return EventHandler
+})

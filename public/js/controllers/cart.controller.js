@@ -1,4 +1,5 @@
-(function(w) {
+define([
+], function() {
   function CartController(cartModel, cartView) {
     this.cartModel = cartModel
     this.cartView = cartView
@@ -21,5 +22,5 @@
     return this.cartModel.getItem(product)
   }
 
-  w.app.controllers.CartController = CartController
-})(window)
+  return CartController
+})

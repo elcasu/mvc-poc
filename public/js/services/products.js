@@ -1,4 +1,6 @@
-(function(w) {
+define([
+  'services/http'
+], function(httpService) {
   // TODO: make this global
   const BASE_URL = 'https://fakestoreapi.com'
 
@@ -6,7 +8,7 @@
   }
 
   function _get(endpoint) {
-    return w.app.services.http.get(`${BASE_URL}/${endpoint}`)
+    return httpService.get(`${BASE_URL}/${endpoint}`)
   }
 
   ProductService.prototype.getProducts = function() {
@@ -17,5 +19,5 @@
     return _get(`products/${id}`)
   }
 
-  w.app.services.productService = new ProductService()
-})(window)
+  return new ProductService()
+})

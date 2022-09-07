@@ -1,21 +1,36 @@
-(function(w) {
+define([
+  'services/events',
+  'models/cart.model',
+  'models/product.model',
+  'views/cart.view',
+  'views/product-list.view',
+  'controllers/cart.controller',
+  'controllers/product.controller',
+], function(
+  EventHandler,
+  CartModel,
+  ProductModel,
+  CartView,
+  ProductListView,
+  CartController,
+  ProductController
+) {
   function App() {
     // services
-    this.eventHandler = new w.app.services.EventHandler()
+    this.eventHandler = new EventHandler()
 
     // cart
-    this.cartModel = new w.app.models.CartModel(this.eventHandler)
-    this.cartView = new w.app.views.CartView(this.eventHandler)
-    this.cartController = new w.app.controllers.CartController(this.cartModel, this.cartView)
+    this.cartModel = new CartModel(this.eventHandler)
+    this.cartView = new CartView(this.eventHandler)
+    this.cartController = new CartController(this.cartModel, this.cartView)
 
     // products
-    this.productModel = new w.app.models.ProductModel()
-    this.productListView = new w.app.views.ProductListView(this.cartController)
-    this.productController = new w.app.controllers.ProductController(this.productModel, this.productListView)
-    this.services = w.app.services
+    this.productModel = new ProductModel()
+    this.productListView = new ProductListView(this.cartController)
+    this.productController = new ProductController(this.productModel, this.productListView)
   }
 
-  async function initApp() {
+  App.prototype.init = async function() {
     const app = new App()
 
     // display the views
@@ -23,11 +38,5 @@
     app.cartController.display()
   }
 
-  // initialize globals
-  w.app = w.app || {}
-  w.app.views = w.app.views || {}
-  w.app.models = w.app.models || {}
-  w.app.controllers = w.app.controllers || {}
-  w.app.services = w.app.services || {}
-  window.addEventListener('load', initApp)
-})(window)
+  return App
+})

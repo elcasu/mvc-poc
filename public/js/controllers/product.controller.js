@@ -1,4 +1,5 @@
-(function(w) {
+define([
+], function() {
   function ProductController(productModel, productListView) {
     this.productModel = productModel
     this.productListView = productListView
@@ -8,5 +9,5 @@
     this.productListView.display(this.productModel)
   }
 
-  w.app.controllers.ProductController = ProductController
-})(window)
+  return ProductController
+})

@@ -1,4 +1,5 @@
-(function(w) {
+define([
+], function() {
   function CartModel(eventHandler) {
     this.items = []
     this.eventHandler = eventHandler
@@ -28,5 +29,5 @@
     return this.items.find(item => item.id === product.id)
   }
 
-  w.app.models.CartModel = CartModel
-})(window)
+  return CartModel
+})
