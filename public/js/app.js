@@ -1,5 +1,4 @@
 define([
-  'services/events',
   'models/cart.model',
   'models/product.model',
   'views/cart.view',
@@ -7,7 +6,6 @@ define([
   'controllers/cart.controller',
   'controllers/product.controller',
 ], function(
-  EventHandler,
   CartModel,
   ProductModel,
   CartView,
@@ -16,12 +14,9 @@ define([
   ProductController
 ) {
   function App() {
-    // services
-    this.eventHandler = new EventHandler()
-
     // cart
-    this.cartModel = new CartModel(this.eventHandler)
-    this.cartView = new CartView(this.eventHandler)
+    this.cartModel = new CartModel()
+    this.cartView = new CartView()
     this.cartController = new CartController(this.cartModel, this.cartView)
 
     // products

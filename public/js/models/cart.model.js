@@ -1,8 +1,11 @@
+// we have to add the line below, so "define" is defined to jest
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+
 define([
-], function() {
-  function CartModel(eventHandler) {
+  'services/events'
+], function(eventHandler) {
+  function CartModel() {
     this.items = []
-    this.eventHandler = eventHandler
   }
 
   CartModel.prototype.addItem = function(item) {
@@ -17,16 +20,23 @@ define([
         quantity: 1,
       })
     }
-    this.eventHandler.notify('cart_changed', this)
+    eventHandler.notify('cart_changed', this)
   }
 
   CartModel.prototype.removeItem = function(item) {
+    if (!this.items.find(i => i.id === item.id)) {
+      throw new Error('Error: product does not exist in the cart')
+    }
     this.items = this.items.filter(i => i.id !== item.id)
-    this.eventHandler.notify('cart_changed', this)
+    eventHandler.notify('cart_changed', this)
   }
 
   CartModel.prototype.getItem = function(product) {
-    return this.items.find(item => item.id === product.id)
+    const item = this.items.find(item => item.id === product.id)
+    if (!item) {
+      throw new Error('Error: product not found in the cart')
+    }
+    return item
   }
 
   return CartModel

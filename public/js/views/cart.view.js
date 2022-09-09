@@ -1,12 +1,15 @@
+// we have to add the line below, so "define" is defined to jest
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+
 define([
-  'services/utils'
-], function(utils) {
+  'services/utils',
+  'services/events'
+], function(utils, eventHandler) {
   const EMPTY_CONTENT = 'No items in your cart yet!'
 
-  function CartView(eventHandler) {
+  function CartView() {
     // define properties
     this.visible = false
-    this.eventHandler = eventHandler
 
     // define en bind the views
     this.cartContainer = document.getElementById('cart')
@@ -14,7 +17,7 @@ define([
     this.cartBadge = document.getElementById('cart-badge')
 
     // subscribe to events
-    this.eventHandler.subscribe('cart_changed', this)
+    eventHandler.subscribe('cart_changed', this)
 
     // event listener which detects clicks outside the component
     document.addEventListener('click', (event) => {

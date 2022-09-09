@@ -18,10 +18,13 @@
   "homepage": "https://github.com/elcasu/mvc-poc#readme",
   "dependencies": {
     "eslint": "^8.23.0",
-    "jest": "^29.0.2"
+    "jest": "^29.0.2",
+    "requirejs": "^2.3.6"
   },
   "devDependencies": {
+    "amdefine": "^1.0.1",
     "babel": "^6.23.0",
+    "eslint-plugin-requirejs": "^4.0.1",
     "jest-environment-jsdom": "^29.0.2"
   }
 }
