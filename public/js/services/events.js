@@ -1,3 +1,6 @@
+// we have to add the line below, so "define" is defined to jest
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+
 define([], function() {
   function EventHandler() {
     // Here we'll store the observers, this is all
@@ -17,5 +20,5 @@ define([], function() {
     eventObservers.forEach(o => o.observer.update(model))
   }
 
-  return EventHandler
+  return new EventHandler()
 })

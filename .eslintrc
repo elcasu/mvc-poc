@@ -1,0 +1,7 @@
+{
+  "es2021": true,
+  "jest": true,
+  "plugins": [
+    "requirejs"
+  ]
+}
