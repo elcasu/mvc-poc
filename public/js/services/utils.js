@@ -1,4 +1,5 @@
-(function(w) {
+define([
+], function() {
   function Utils() {
   }
 
@@ -8,5 +9,5 @@
     }
   }
 
-  w.app.services.utils = new Utils()
-})(window)
+  return new Utils()
+})

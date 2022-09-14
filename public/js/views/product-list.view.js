@@ -1,4 +1,6 @@
-(function(w) {
+define([
+  'services/utils'
+], function(utils) {
   function ProductListView (cartController) {
     this.cartController = cartController
     this.productListContainer = document.getElementById('product-list')
@@ -30,12 +32,12 @@
   }
 
   ProductListView.prototype.cleanup = function() {
-    w.app.services.utils.cleanupView(this.productListContainer)
+    utils.cleanupView(this.productListContainer)
   }
 
   // TODO: maybe we could split the spinner as a separate view?
   ProductListView.prototype.loadingTemplate = function() {
-    const domParser = new w.DOMParser()
+    const domParser = new DOMParser()
     const template = `
       <div class="spinner d-flex flex-column align-items-center mt-5 w-100">
         <div class="spinner-border">
@@ -45,7 +47,7 @@
   }
 
   ProductListView.prototype.productListTemplate = function(product) {
-    const domParser = new w.DOMParser()
+    const domParser = new DOMParser()
     const template = `
       <div class="product-item d-flex justify-content-between">
         <div>
@@ -69,5 +71,5 @@
     return domParser.parseFromString(template, 'text/html').querySelector('.product-item')
   }
 
-  w.app.views.ProductListView = ProductListView
-})(window)
+  return ProductListView
+})

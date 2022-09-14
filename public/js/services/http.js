@@ -1,11 +1,12 @@
-(function(w) {
+define([
+], function() {
   function HttpService() {
   }
 
   HttpService.prototype.get = async function(url) {
-    const result = await w.fetch(url)
+    const result = await fetch(url)
     return result.json()
   }
 
-  w.app.services.http = new HttpService()
-})(window)
+  return new HttpService()
+})
