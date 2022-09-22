@@ -1,5 +1,4 @@
 jest.mock('vm')
-const ProductModel = require('../../public/js/models/product.model')
 const CartModel = require('../../public/js/models/cart.model')
 
 const products = [
@@ -169,19 +168,15 @@ describe('Cart model', () => {
       })
     })
 
-    it('throws an error if we try to get an unexisting item', () => {
+    it('returns undefined if we try to get an unexisting item', () => {
       const cart = new CartModel()
 
       // this time we add just one product
       cart.addItem(products[0])
 
       // and try to get the item for the other product
-      try {
-        cart.getItem(products[1])
-        throw new Error('This should fail')
-      } catch (error) {
-        expect(error.message).toEqual('Error: product not found in the cart')
-      }
+      const item = cart.getItem(products[1])
+      expect(item).toBeUndefined()
     })
   })
 })

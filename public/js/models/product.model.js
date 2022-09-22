@@ -7,8 +7,12 @@ define([
   function ProductModel() {
   }
 
-  ProductModel.prototype.getProducts = function() {
-    return productService.getProducts()
+  ProductModel.prototype.getProducts = async function() {
+    try {
+      return await productService.getProducts()
+    } catch (error) {
+      throw new Error('Something went wrong, try again later')
+    }
   }
 
   return ProductModel

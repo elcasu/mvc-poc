@@ -32,11 +32,7 @@ define([
   }
 
   CartModel.prototype.getItem = function(product) {
-    const item = this.items.find(item => item.id === product.id)
-    if (!item) {
-      throw new Error('Error: product not found in the cart')
-    }
-    return item
+    return this.items.find(item => item.id === product.id)
   }
 
   return CartModel
