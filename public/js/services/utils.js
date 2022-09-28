@@ -1,3 +1,6 @@
+// we have to add the line below, so "define" is defined to jest
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+
 define([
 ], function() {
   function Utils() {

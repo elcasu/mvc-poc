@@ -1,10 +1,14 @@
 define([
-  'services/utils'
-], function(utils) {
+  'services/utils',
+  'services/events'
+], function(utils, eventHandler) {
   function ProductListView (cartController) {
     this.cartController = cartController
     this.productListContainer = document.getElementById('product-list')
     this.products = []
+
+    // subscribe to events
+    eventHandler.subscribe('cart_changed', this)
   }
 
   ProductListView.prototype.display = async function(productModel) {
@@ -35,6 +39,10 @@ define([
     utils.cleanupView(this.productListContainer)
   }
 
+  ProductListView.prototype.update = function() {
+    this.display()
+  }
+
   // TODO: maybe we could split the spinner as a separate view?
   ProductListView.prototype.loadingTemplate = function() {
     const domParser = new DOMParser()
@@ -48,6 +56,10 @@ define([
 
   ProductListView.prototype.productListTemplate = function(product) {
     const domParser = new DOMParser()
+    const cartItem = this.cartController.getItem(product)
+    const badgeText = cartItem && cartItem.quantity
+      ? `${cartItem.quantity} items in cart`
+      : ''
     const template = `
       <div class="product-item d-flex justify-content-between">
         <div>
@@ -59,6 +71,7 @@ define([
         <div class="position-relative">
           <div>
             <div class="price">$${product.price}</div>
+            <div class="badge rounded-pill bg-primary product-badge">${badgeText}</div>
           </div>
           <div class="description">${product.description}</div>
           <div class="actions mt-5 d-flex justify-content-between">
